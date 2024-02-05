@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Student Group Management System</title>
+	<meta name="generator" content="LibreOffice 7.3.7.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2023-11-13T11:09:03.636284181"/>
+	<style type="text/css">
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			text-align: center;
+			margin-top: 30px;
+			color: #333;
+		}
+
+		form {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		form input[type="text"],
+		form input[type="number"] {
+			padding: 8px;
+			border: none;
+			border-radius: 4px;
+			background-color: #f2f2f2;
+			margin-right: 10px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 30px;
+		}
+
+		th, td {
+			padding: 10px;
+			text-align: left;
+			border: 1px solid #ddd;
+		}
+
+		tr:hover {
+			background-color: #f5f5f5;
+		}
+
+		a.button {
+			display: inline-block;
+			padding: 8px 16px;
+			background-color: #007bff;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			border-radius: 4px;
+		}
+
+		a.button:hover {
+			background-color: #0056b3;
+		}
+
+		.edit-button {
+			background-color: green;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			padding: 8px 16px;
+			cursor: pointer;
+		}
+
+		.delete-button {
+			background-color: red;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			padding: 8px 16px;
+			cursor: pointer;
+		}
+
+		.add-button {
+			background-color: blue;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			padding: 8px 16px;
+			cursor: pointer;
+		}
+
+		.generate-button {
+			background-color: blue;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			padding: 8px 16px;
+			cursor: pointer;
+		}
+		.input-text{
+			padding-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>RANDOM GROUP GENERATOR</h1>
+	<div class="container">
+		<h1>Add Student</h1>
+		<form  action="/add_student" method="POST">
+			<input class="input-text" type="text" name="name" placeholder="Enter Student name" required><br><br>
+			<input class="input-text" type="radio" name="gender" value="male" required>Male<br><br>
+			<input class="input-text" type="radio" name="gender" value="female"  required>Female<br><br>
+			<button type="submit" class="add-button">Add Student</button>
+		</form>
+		<h1>Student Groups</h1>
+		<form action="/generate_groups" method="post">
+			<label for="num_groups">Number of Groups:</label>
+			<input type="number" id="num_groups" name="num_groups" min="1"  required>
+			<button type="submit" class="generate-button">Generate Groups</button>
+		</form>
+		<br>
+		<h1>Students</h1>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Gender</th>
+				<th>Action</th>
+			</tr>
+			{% for student in students %}
+			<tr>
+				<td>{{ student.name }}</td>
+				<td>{{ student.gender }}</td>
+				<td>
+					<a href="/edit_student/{{student.id }}" class="edit-button">Edit</a>
+					<form action="/delete_student/{{ student.id }}" method="POST" style="display:inline">
+						<button type="submit" class="delete-button">Delete</button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+</body>
+</html>

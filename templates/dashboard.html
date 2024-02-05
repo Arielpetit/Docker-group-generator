@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Group Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .group-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .group-card {
+            width: 300px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .group-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .group-card h2 {
+            text-align: center;
+            margin-top: 0;
+            color: #333;
+        }
+
+        .group-members {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .group-members li {
+            margin-bottom: 5px;
+        }
+
+        .group-card::before {
+            content: "";
+            display: block;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .group-card h2 {
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+        .group-members li {
+            font-size: 16px;
+        }
+
+        .group-members li:first-child {
+            font-weight: bold;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Group Dashboard</h1>
+    <div class="group-container">
+        {% for group in groups %}
+        <div class="group-card">
+            <h2>Group {{ loop.index }}</h2>
+            <ul class="group-members">
+                {% for member in group %}
+                    {% if loop.first %}
+                        <li><span style="color: #ff0000; font-weight: bold;">{{ member }}</span> (Group Leader)</li>
+                    {% else %}
+                        <li>{{ member }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
